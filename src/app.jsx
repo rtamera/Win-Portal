@@ -71,7 +71,7 @@ export default function App() {
               alt="Logo" />
           </div>
           {/* 2. WELCOME TEXT (Centered in the pane) */}
-          <div style={{ position: 'absolute', top: '7rem', left: '2rem', right: '2rem', zIndex: 2 }}>
+          <div style={{ position: 'absolute', top: isAuthenticated ? '15vh' : '20vh', left: '2rem', right: '2rem', zIndex: 2 }}>
             <h3 style={{ 
               margin: 0, 
               fontWeight: '700', 

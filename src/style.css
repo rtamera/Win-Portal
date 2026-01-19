@@ -129,7 +129,7 @@ background-color: #f9fafb;
 
 .grid-button {
   outline: none;
-  background: #ffffff;
+  background: #fef8ea !important;
   overflow: hidden;
   width: 100%;
   transition: all 0.3s ease;
@@ -140,7 +140,7 @@ background-color: #f9fafb;
   transform: translateY(-5px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
   border-color: #f3e8d2; /* Matches your login button theme */
-  background-color: #fef8ea !important;
+  background-color: #FEF0D1 !important;
 }
 
 /* Ensure images don't get squished */
