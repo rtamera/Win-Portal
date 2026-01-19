@@ -1,11 +1,21 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Aptos', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   
   /* Standardizing colors - change #ffffff to #f9fafb for a slight off-white */
   background-color: #ffffff; 
   color: #213547;
+}
+
+@font-face {
+  font-family: 'Aptos';
+  src: local('Aptos'), local('Segoe UI'); /* Uses system Aptos if available */
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Aptos', 'Segoe UI', sans-serif;
 }
 
 #app {
@@ -19,6 +29,7 @@ body {
   margin: 0;
   padding: 0;
   display: block; /* Ensure no flex is messing with the root body */
+  font-family: 'Aptos', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* 2. Utility for the main container in App.jsx */
@@ -100,17 +111,53 @@ button {
 }
 
 .sidebar-sub-item {
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  color: #6b7280;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  color: #4b5563;
   cursor: pointer;
   border-left: 2px solid #e5e7eb;
+  margin-left: 4px;
+  transition: all 0.2s ease;
 }
 
 .sidebar-sub-item:hover {
-  color: #0067b8;
-  border-left-color: #0067b8;
+background-color: #f9fafb;
+  color: #363c4e;
+  border-left-color: #363c4e;
+  padding-left: 20px;
+}
+
+.grid-button {
+  outline: none;
+  background: #ffffff;
+  overflow: hidden;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Base hover effect (we can customize colors for each button next) */
+.grid-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: #f3e8d2; /* Matches your login button theme */
+  background-color: #fef8ea !important;
+}
+
+/* Ensure images don't get squished */
+.grid-button img {
+  pointer-events: none;
+}
+
+.grid-button:hover p {
+    color: #374151;
+}
+
+.grid-button span {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* DEBUG MODE: Uncomment the line below if the screen is still white/empty 
-* { outline: 1px solid red !important; }*/
+* { outline: 1px solid red !important; }} */

@@ -41,42 +41,73 @@ export default function App() {
       {/* 2. MAIN CONTENT AREA (The split) */}
       <div style={{ 
         display: 'flex', 
-        flexDirection: 'row', // THIS IS THE KEY: Forces Left and Right side-by-side
+        flexDirection: 'row',
         flex: 1, 
-        width: '100%',
+        height: isAuthenticated ? 'calc(100vh - 64px)' : '100vh', // Adjust for navbar height
+        width: '100vw',
         overflow: 'hidden'
       }}>
 
-        {/* LEFT PANE (30%) */}
+        {/* LEFT PANE (40%) */}
         <aside style={{ 
-          width: '30%', 
+          width: '40%', 
           height: '100%',
-          display: 'block', 
+          display: 'flex', 
           flexDirection: 'column', 
           padding: '2rem', 
-          borderRight: '1px solid #e5e7eb',
           boxSizing: 'border-box',
           position: 'relative',
-          backgroundColor: '#f9fafb'
+          backgroundColor: 'white',
+          overflow: 'hidden',
+          //borderRight: '1px solid #e5e7eb',
+          //justifyContent: 'left',
         }}>
-          <div style={{ marginBottom: '2rem' }}>
+          <div style={{ position: 'absolute', top: '1.5rem', left: '2rem' }}>
             <img src={logoGroup} style={{ 
-              height: '60px', 
+              height: '75px', 
               width: 'auto', 
               objectFit: 'contain' 
               }} 
               alt="Logo" />
           </div>
-          <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+          {/* 2. WELCOME TEXT (Centered in the pane) */}
+          <div style={{ position: 'absolute', top: '7rem', left: '2rem', right: '2rem', zIndex: 2 }}>
+            <h3 style={{ 
+              margin: 0, 
+              fontWeight: '700', 
+              color: '#1b1b1b', 
+              fontSize: '1.1rem',
+              letterSpacing: '1px',
+              marginBottom: '0.5rem',
+            }}>
+              WELCOME TO
+            </h3>
+            <h2 style={{ 
+              margin: 0, 
+              fontWeight: '700', 
+              color: '#1b1b1b', 
+              fontSize: '2rem',
+              lineHeight: '1.1',
+              maxWidth: '90%'
+            }}>
+              AS WATSON WIN PORTAL
+            </h2>
+          </div>
+
+          {/* 3. LEGO GLOBE IMAGE */}
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: 'auto' }}>
             <img src={globeImg} style={{ 
               position: 'absolute',
               bottom: '0',
               left: '0',
-              width: '100%', // Adjust size as needed
-              maxWidth: '350px',
-              height: 'auto',
+              width: '100%',
+              maxWidth: '35vw',
               zIndex: 1,
-              pointerEvents: 'none' // Allows clicks to pass through if needed
+              pointerEvents: 'none',
+              opacity: 1
+              //marginLeft: '-3rem',
+              //height: 'auto',
+              //marginBottom: '-3rem',
               }} 
               alt="Globe" />
           </div>
@@ -84,21 +115,22 @@ export default function App() {
 
         {/* RIGHT PANE (70%) */}
         <main style={{ 
-          width: '70%', 
+          width: '60%', 
           height: '100%',
-          display: 'flex', 
+          display: 'flex',
+          flexDirection: 'column', 
           alignItems: 'center', 
-          justifyContent: 'center', 
+          justifyContent: isAuthenticated ? 'flex-start' : 'center', 
           padding: '2rem',
           boxSizing: 'border-box',
-          overflowY: 'auto' // Allows scrolling if grid is too big
+          overflowY: 'auto',
+          backgroundColor: '#ffffff'
+          //overflow: 'hidden' // Allows scrolling if grid is too big
         }}>
           <section key={location.pathname} className="page-transition" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             <Routes>
               <Route path="/" element={isAuthenticated ? ( <MainPage /> ) : 
               ( <LoginPage onLogin={handleLogin} loggedOut={showLogoutMessage} /> )} />
-              {/*<Route path="/login" element={<LoginPage onLogin={handleLogin} />} />*/}
-              {/*<Route path="/logout" element={<LogoutPage onLogout={handleLogout} />} />*/}
             </Routes>
           </section>
         </main>
@@ -122,7 +154,7 @@ export default function App() {
       }}>
         {/* TOP LOGO AREA */}
         <div style={{ padding: '1.5rem', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <img src={logoGroup} style={{ height: '40px', width: 'auto' }} alt="Sidebar Logo" />
+          <img src={logo} style={{ height: '40px', width: 'auto' }} alt="Sidebar Logo" />
           <button onClick={() => setIsMenuOpen(false)} style={{ fontSize: '1.2rem', cursor: 'pointer', border: 'none', background: 'none' }}>✕</button>
         </div>
         {/* NAV LINKS AREA */}
