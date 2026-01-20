@@ -200,14 +200,6 @@ export default function App() {
           </button>
         </div>
 
-        {/* Sidebar User Section */}
-        <div className="sidebar__user">
-          <span className="sidebar__user-name">{user.displayName}</span>
-          <button className="sidebar__user-logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-
         {/* Sidebar Menu */}
         <nav className="sidebar__menu">
           {menuItems.map((item) => (
