@@ -84,14 +84,14 @@
   max-height: 28vh;
 }
 
-/* Responsive */
-@media (max-width: 1440px) {
+/* Responsive - Target: 1920x1080 desktop */
+@media (max-width: 900px) {
   .app-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .app-grid {
     grid-template-columns: 1fr;
   }
