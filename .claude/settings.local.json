@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(del \"c:\\\\Users\\\\rheat\\\\OneDrive\\\\Documents\\\\Win Portal\\\\src\\\\config.js\" \"c:\\\\Users\\\\rheat\\\\OneDrive\\\\Documents\\\\Win Portal\\\\src\\\\style.css\")"
-    ]
-  }
-}
