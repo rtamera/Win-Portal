@@ -1,0 +1,381 @@
+# WIN Portal Developer Guide
+
+A beginner-friendly guide to editing and maintaining the AS Watson WIN Portal application.
+
+---
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Folder Structure](#folder-structure)
+3. [How to Add a New Application](#how-to-add-a-new-application)
+4. [How to Edit Sidebar Navigation](#how-to-edit-sidebar-navigation)
+5. [How to Change Branding](#how-to-change-branding)
+6. [How to Modify Styles](#how-to-modify-styles)
+7. [Configuration Files Reference](#configuration-files-reference)
+
+---
+
+## Project Overview
+
+This is a React-based portal application built with Vite. The design is modular, meaning most content changes can be made by editing configuration files rather than touching the actual components.
+
+**Key Technologies:**
+- React (UI framework)
+- Vite (build tool)
+- React Router (navigation)
+- CSS (styling)
+
+---
+
+## Folder Structure
+
+```
+src/
+├── assets/              # Images and logos
+│   ├── Globe.png
+│   ├── ASWatsonLogo.png
+│   ├── WINBinobg.png    # App logos (use transparent PNG)
+│   └── ...
+├── components/          # Reusable UI components
+│   ├── Navbar.jsx
+│   └── Sidebar.jsx
+├── config/              # ** MAIN CONFIGURATION FILES **
+│   ├── index.js         # Central export
+│   ├── applications.js  # App grid data
+│   ├── navigation.js    # Sidebar menu items
+│   ├── branding.js      # Portal name, text content
+│   └── user.js          # User display settings
+├── pages/
+│   ├── Main/
+│   │   └── MainPage.jsx # Main app grid page
+│   └── Login/
+│       └── LoginPage.jsx
+├── styles/              # CSS files
+│   ├── index.css        # Main style import
+│   ├── variables.css    # Colors, fonts, spacing
+│   ├── base.css         # Reset and defaults
+│   ├── navbar.css
+│   ├── sidebar.css
+│   ├── app-card.css     # Application cards
+│   └── login.css
+└── app.jsx              # Main app component
+```
+
+---
+
+## How to Add a New Application
+
+Adding a new app card to the grid requires **3 steps**:
+
+### Step 1: Add the Logo Image
+
+1. Get your logo image (preferably PNG with transparent background)
+2. Name it descriptively, e.g., `MyNewAppnobg.png`
+3. Place it in: `src/assets/`
+
+### Step 2: Register the Icon in MainPage.jsx
+
+Open `src/pages/Main/MainPage.jsx` and:
+
+**A) Add the import at the top (around line 5-12):**
+
+```javascript
+// Existing imports...
+import winbiLogo from '../../assets/WINBinobg.png';
+import aswinsightLogo from '../../assets/ASWINSIGHTnobg.png';
+// ... other imports ...
+
+// ADD YOUR NEW IMPORT HERE:
+import myNewAppLogo from '../../assets/MyNewAppnobg.png';
+```
+
+**B) Add to the iconMap (around line 15-24):**
+
+```javascript
+const iconMap = {
+  winbi: winbiLogo,
+  aswinsight: aswinsightLogo,
+  // ... other mappings ...
+
+  // ADD YOUR NEW MAPPING HERE:
+  mynewapp: myNewAppLogo,
+};
+```
+
+### Step 3: Add the Application Entry
+
+Open `src/config/applications.js` and add a new object to the array:
+
+```javascript
+export const applications = [
+  // ... existing apps ...
+
+  // ADD YOUR NEW APP HERE:
+  {
+    id: 'mynewapp',           // Unique identifier (no spaces)
+    name: 'My New App',       // Display name
+    description: 'Description of what this app does',
+    iconKey: 'mynewapp',      // Must match the key in iconMap
+    url: '#mynewapp',         // Link URL (or full URL like 'https://...')
+    enabled: true,            // Set to false to hide without deleting
+  },
+];
+```
+
+### Complete Example
+
+Let's say you want to add "WINAnalytics":
+
+1. **Add image:** Save `WINAnalyticsnobg.png` to `src/assets/`
+
+2. **Edit MainPage.jsx:**
+   ```javascript
+   // Add import
+   import winanalyticsLogo from '../../assets/WINAnalyticsnobg.png';
+
+   // Add to iconMap
+   const iconMap = {
+     // ... existing entries ...
+     winanalytics: winanalyticsLogo,
+   };
+   ```
+
+3. **Edit applications.js:**
+   ```javascript
+   {
+     id: 'winanalytics',
+     name: 'WINAnalytics',
+     description: 'Advanced analytics and reporting dashboard',
+     iconKey: 'winanalytics',
+     url: 'https://analytics.aswatson.com',
+     enabled: true,
+   },
+   ```
+
+### Disabling an Application
+
+To temporarily hide an app without deleting it, set `enabled: false`:
+
+```javascript
+{
+  id: 'winbi',
+  name: 'WINbi+',
+  description: 'Visual your business of AS Watson in seconds',
+  iconKey: 'winbi',
+  url: '#winbi',
+  enabled: false,  // <-- This hides the app
+},
+```
+
+---
+
+## How to Edit Sidebar Navigation
+
+The sidebar menu is configured in `src/config/navigation.js`.
+
+### Menu Item Structure
+
+```javascript
+{
+  id: 'unique-id',        // Unique identifier
+  label: 'Menu Label',    // Display text
+  icon: '📊',             // Emoji or Unicode icon
+  link: '#',              // URL or anchor
+  expandable: false,      // true if it has children
+  children: [],           // Sub-menu items (if expandable: true)
+}
+```
+
+### Adding a Simple Menu Item
+
+```javascript
+{
+  id: 'reports',
+  label: 'Reports',
+  icon: '📊',
+  link: '/reports',
+  expandable: false,
+},
+```
+
+### Adding a Menu Item with Dropdown
+
+```javascript
+{
+  id: 'settings',
+  label: 'Settings',
+  icon: '⚙️',
+  link: '#',
+  expandable: true,
+  children: [
+    { id: 'general', label: 'General', icon: '🔧', link: '/settings/general' },
+    { id: 'security', label: 'Security', icon: '🔒', link: '/settings/security' },
+  ],
+},
+```
+
+### Common Icons
+
+| Purpose | Icon |
+|---------|------|
+| User/Profile | 👤 |
+| Settings | ⚙️ |
+| Reports | 📊 |
+| Documents | 📄 |
+| Security | 🔐 |
+| Building | 🏢 |
+| Time/Clock | 🕐 |
+| List | 📋 |
+| Search | 🔍 |
+| Mail | ✉️ |
+
+---
+
+## How to Change Branding
+
+Edit `src/config/branding.js`:
+
+```javascript
+export const branding = {
+  portalName: 'AS WATSON WIN PORTAL',  // Main title
+  welcomeText: 'WELCOME TO',           // Text above title
+  tagline: 'Grow as One',              // Tagline
+  yearsCelebration: '185 Years',       // Anniversary text
+  sinceYear: 'Since 1841',             // Since year
+};
+
+export const content = {
+  footerVersion: 'V2.0.4 ©WIN Portal 2024',  // Footer text
+};
+```
+
+### Changing the Logo
+
+1. Replace the image files in `src/assets/`:
+   - `ASWatsonLogo.png` - Navbar logo
+   - `ASW-185yrs-logo-group-en.png` - Hero section logo
+   - `Globe.png` - Globe decoration
+
+2. Keep the same filenames, or update imports in `src/app.jsx`
+
+---
+
+## How to Modify Styles
+
+### Colors and Theme
+
+Edit `src/styles/variables.css`:
+
+```css
+:root {
+  /* Primary Brand Colors */
+  --color-primary: #C41230;        /* Main brand color (red) */
+  --color-primary-dark: #9E0E27;   /* Darker shade for hover */
+
+  /* UI Colors */
+  --color-card-bg: #FCF8EE;        /* Card background (cream) */
+  --color-card-bg-hover: #FEF0D1;  /* Card hover color */
+  --color-navy: #2C3E50;           /* Navy blue */
+
+  /* Neutrals */
+  --color-white: #FFFFFF;
+  --color-gray-light: #F5F5F5;
+  --color-gray-medium: #E0E0E0;
+  --color-gray-dark: #333333;
+  --color-gray-muted: #666666;
+}
+```
+
+### Font
+
+The default font is Aptos. To change it, edit `variables.css`:
+
+```css
+--font-primary: 'Your Font', 'Fallback Font', sans-serif;
+```
+
+### Grid Layout
+
+Edit `src/styles/app-card.css`:
+
+```css
+.app-grid {
+  grid-template-columns: repeat(3, minmax(200px, 1fr));  /* 3 columns */
+  gap: 1.5vh 20px;  /* Vertical and horizontal gap */
+  max-width: 1000px;  /* Maximum grid width */
+}
+```
+
+### Card Appearance
+
+Also in `app-card.css`:
+
+```css
+.app-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--border-radius-lg);  /* 12px */
+  min-height: 160px;
+}
+```
+
+---
+
+## Configuration Files Reference
+
+| File | Purpose | What You Can Change |
+|------|---------|---------------------|
+| `config/applications.js` | App grid | Add/remove/edit app cards |
+| `config/navigation.js` | Sidebar menu | Menu items and structure |
+| `config/branding.js` | Text content | Portal name, footer, taglines |
+| `config/user.js` | User display | Default user name, initials |
+| `styles/variables.css` | Theme | Colors, fonts, spacing |
+| `styles/app-card.css` | Card grid | Grid layout, card styles |
+
+---
+
+## Quick Reference: File Locations
+
+| Task | File to Edit |
+|------|--------------|
+| Add new app | `config/applications.js` + `pages/Main/MainPage.jsx` |
+| Edit sidebar | `config/navigation.js` |
+| Change colors | `styles/variables.css` |
+| Edit portal name | `config/branding.js` |
+| Change card layout | `styles/app-card.css` |
+| Add new logo | `assets/` folder + import in relevant file |
+
+---
+
+## Running the Application
+
+```bash
+# Install dependencies (first time only)
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+---
+
+## Tips for Beginners
+
+1. **Always save files** before checking the browser
+2. **Use browser DevTools** (F12) to inspect elements and debug
+3. **Keep backups** before making major changes
+4. **Test on different screen sizes** using browser's responsive mode
+5. **Check the console** for errors if something doesn't work
+6. **Commit often** with Git to track changes
+
+---
+
+## Need Help?
+
+- Check browser console for error messages
+- Verify file paths are correct (case-sensitive!)
+- Make sure all imports match the actual filenames
+- Ensure JSON/JavaScript syntax is valid (watch for commas)
