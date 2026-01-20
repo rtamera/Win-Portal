@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import MainPage from './pages/Main/MainPage';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar';
-import { branding, user, content, menuItems } from './config';
+import Sidebar from './components/Sidebar';
+import { branding, user } from './config';
 import globeImg from './assets/Globe.png';
 import logoGroup from './assets/ASW-185yrs-logo-group-en.png';
 import logo from './assets/ASWatsonLogo.png';
-import './style.css';
+import './styles/index.css';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [expandedMenus, setExpandedMenus] = useState({});
   const location = useLocation();
 
   const handleLogin = () => {
@@ -27,39 +27,9 @@ export default function App() {
     setIsMenuOpen(false);
   };
 
-  const toggleMenu = (menuId) => {
-    setExpandedMenus(prev => ({
-      ...prev,
-      [menuId]: !prev[menuId]
-    }));
-  };
-
   const closeSidebar = () => {
     setIsMenuOpen(false);
   };
-
-  // Close sidebar on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        closeSidebar();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Prevent body scroll when sidebar is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', overflow: 'hidden' }}>
@@ -184,61 +154,12 @@ export default function App() {
         </main>
       </div>
 
-      {/* Sidebar Overlay */}
-      <div
-        className={`sidebar-overlay ${isMenuOpen ? 'active' : ''}`}
-        onClick={closeSidebar}
+      {/* Sidebar Component */}
+      <Sidebar
+        isOpen={isMenuOpen}
+        onClose={closeSidebar}
+        logo={logo}
       />
-
-      {/* Sidebar */}
-      <aside className={`sidebar ${isMenuOpen ? 'sidebar--open' : ''}`}>
-        {/* Sidebar Header */}
-        <div className="sidebar__header">
-          <img src={logo} alt="AS Watson" className="sidebar__logo" />
-          <button className="sidebar__close" onClick={closeSidebar} aria-label="Close menu">
-            &times;
-          </button>
-        </div>
-
-        {/* Sidebar Menu */}
-        <nav className="sidebar__menu">
-          {menuItems.map((item) => (
-            <div key={item.id}>
-              {item.expandable ? (
-                <>
-                  <button
-                    className="sidebar__menu-item"
-                    onClick={() => toggleMenu(item.id)}
-                  >
-                    <span className="sidebar__menu-icon">{item.icon}</span>
-                    <span className="sidebar__menu-label">{item.label}</span>
-                    <span className={`sidebar__menu-arrow ${expandedMenus[item.id] ? 'open' : ''}`}>
-                      ▶
-                    </span>
-                  </button>
-                  <div className={`sidebar__submenu ${expandedMenus[item.id] ? 'open' : ''}`}>
-                    {item.children?.map((child) => (
-                      <a key={child.id} href={child.link} className="sidebar__submenu-item">
-                        {child.label}
-                      </a>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <a href={item.link} className="sidebar__menu-item">
-                  <span className="sidebar__menu-icon">{item.icon}</span>
-                  <span className="sidebar__menu-label">{item.label}</span>
-                </a>
-              )}
-            </div>
-          ))}
-        </nav>
-
-        {/* Sidebar Footer */}
-        <footer className="sidebar__footer">
-          {content.footerVersion}
-        </footer>
-      </aside>
     </div>
   );
 }

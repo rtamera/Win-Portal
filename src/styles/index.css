@@ -1,0 +1,16 @@
+/* ============================================================
+   Main Stylesheet Index
+   Imports all component styles in the correct order
+   ============================================================ */
+
+/* 1. Variables - Design tokens (colors, fonts, spacing) */
+@import './variables.css';
+
+/* 2. Base - Reset and global defaults */
+@import './base.css';
+
+/* 3. Components */
+@import './navbar.css';
+@import './sidebar.css';
+@import './app-card.css';
+@import './login.css';

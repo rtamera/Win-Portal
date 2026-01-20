@@ -1,0 +1,71 @@
+// ============================================================
+// Applications Configuration
+// App grid data - all portal applications
+// ============================================================
+
+export const applications = [
+  {
+    id: 'winbi',
+    name: 'WINbi+',
+    description: 'Visual your business of AS Watson in seconds',
+    iconKey: 'winbi',
+    url: '#winbi',
+    enabled: true,
+  },
+  {
+    id: 'aswinsight',
+    name: 'ASWInsight',
+    description: 'Discover your opportunity in our major local market',
+    iconKey: 'aswinsight',
+    url: '#aswinsight',
+    enabled: true,
+  },
+  {
+    id: 'winsustainable',
+    name: 'WINSustainable',
+    description: 'Learn about sustainable choice preference in our customers',
+    iconKey: 'winsustainable',
+    url: '#winsustainable',
+    enabled: true,
+  },
+  {
+    id: 'wincrm',
+    name: 'WINCRM',
+    description: 'Understanding how your target customers interact with your brand',
+    iconKey: 'wincrm',
+    url: '#wincrm',
+    enabled: true,
+  },
+  {
+    id: 'winservice',
+    name: 'WINService Level',
+    description: 'Track on service level for delivery improvement',
+    iconKey: 'winservice',
+    url: '#winservice',
+    enabled: true,
+  },
+  {
+    id: 'winscore',
+    name: 'WINScore',
+    description: 'Collection on our NIV for analysis',
+    iconKey: 'winscore',
+    url: '#winscore',
+    enabled: true,
+  },
+  {
+    id: 'winbrand',
+    name: 'WINBrand',
+    description: 'Centralized and streamlines supplier brand data submission',
+    iconKey: 'winbrand',
+    url: '#winbrand',
+    enabled: true,
+  },
+  {
+    id: 'linkbi',
+    name: 'LINKbi',
+    description: 'Visual your business of AS Watson in seconds',
+    iconKey: 'linkbi',
+    url: '#linkbi',
+    enabled: true,
+  },
+];

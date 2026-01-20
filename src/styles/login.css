@@ -1,0 +1,73 @@
+/* ============================================================
+   Login Page Styles
+   Microsoft 365 login interface
+   ============================================================ */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: var(--space-md);
+}
+
+.login-notice {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-muted);
+  text-align: center;
+}
+
+.login-notice a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #363c4e;
+  color: var(--color-white);
+  border: none;
+  border-radius: 4px;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #2d3240;
+}
+
+.login-btn__icon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  width: 16px;
+  height: 16px;
+}
+
+.login-btn__icon span {
+  background-color: var(--color-white);
+  border-radius: 1px;
+}
+
+.logout-message {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-dark);
+  text-align: left;
+  margin-bottom: var(--space-lg);
+}

@@ -1,0 +1,69 @@
+/* ============================================================
+   CSS Variables - Design Tokens
+   Customize colors, fonts, spacing here
+   ============================================================ */
+
+:root {
+  /* Primary Brand Colors */
+  --color-primary: #C41230;
+  --color-primary-dark: #9E0E27;
+
+  /* UI Colors */
+  --color-card-bg: #FCF8EE;
+  --color-card-bg-hover: #FEF0D1;
+  --color-navy: #2C3E50;
+
+  /* Neutrals */
+  --color-white: #FFFFFF;
+  --color-gray-light: #F5F5F5;
+  --color-gray-medium: #E0E0E0;
+  --color-gray-dark: #333333;
+  --color-gray-muted: #666666;
+  --color-border: #e5e7eb;
+
+  /* Accents */
+  --color-orange: #F7941D;
+  --color-pink: #E91E8C;
+  --color-teal: #00A99D;
+  --color-blue: #3b82f6;
+
+  /* Overlay */
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-sidebar: 4px 0 24px rgba(0, 0, 0, 0.15);
+  --shadow-navbar: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Typography */
+  --font-primary: 'Aptos', 'Aptos Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Layout */
+  --navbar-height: 60px;
+  --sidebar-width: 280px;
+  --grid-columns: 3;
+  --grid-gap: 24px;
+
+  /* Borders */
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+}
