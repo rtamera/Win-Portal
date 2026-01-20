@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS Watson WIN Portal</title>
+  <link rel="stylesheet" href="/css/main-styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__left">
+      <button class="navbar__hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <img src="" alt="AS Watson" class="navbar__logo" id="navbarLogo">
+    </div>
+    <div class="navbar__right">
+      <div class="navbar__user" id="navbarUser">
+        <span class="navbar__user-name" id="navbarUserName"></span>
+        <span class="navbar__user-arrow">▼</span>
+        <div class="navbar__user-avatar"></div>
+      </div>
+      <div class="navbar__dropdown" id="navbarDropdown">
+        <button class="navbar__dropdown-item" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <img src="" alt="AS Watson" class="sidebar__logo" id="sidebarLogo">
+      <button class="sidebar__close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="sidebar__user">
+      <span id="sidebarUserName"></span>
+      <button id="sidebarLogoutBtn">Logout</button>
+    </div>
+    <nav class="sidebar__menu" id="sidebarMenu">
+      <!-- Menu items rendered by JS -->
+    </nav>
+    <footer class="sidebar__footer" id="sidebarFooter">
+      <!-- Version from config -->
+    </footer>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Main Dashboard Content -->
+  <main class="dashboard">
+    <section class="dashboard__hero">
+      <img src="" alt="AS Watson 185 Years" class="hero-logo" id="dashboardHeroLogo185">
+      <p class="welcome-text"></p>
+      <h1 class="portal-name"></h1>
+      <img src="" alt="Globe" class="hero-image" id="dashboardHeroImage">
+    </section>
+    <section class="dashboard__apps">
+      <div class="app-grid" id="appGrid">
+        <!-- Cards rendered by JS -->
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* ============================================================
-   AS Watson WIN Portal - Consolidated Styles
-   Organized CSS for React application
+   AS Watson WIN Portal - Standalone Main Page Styles
+   Consolidated CSS for standalone deployment
    ============================================================ */
 
 /* ============================================================
@@ -13,7 +13,6 @@
 
   /* UI Colors */
   --color-card-bg: #FCF8EE;
-  --color-card-bg-hover: #FEF0D1;
   --color-navy: #2C3E50;
 
   /* Neutrals */
@@ -22,13 +21,11 @@
   --color-gray-medium: #E0E0E0;
   --color-gray-dark: #333333;
   --color-gray-muted: #666666;
-  --color-border: #e5e7eb;
 
   /* Accents */
   --color-orange: #F7941D;
   --color-pink: #E91E8C;
   --color-teal: #00A99D;
-  --color-blue: #3b82f6;
 
   /* Overlay */
   --color-overlay: rgba(0, 0, 0, 0.5);
@@ -51,6 +48,7 @@
   --font-size-lg: 18px;
   --font-size-xl: 24px;
   --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
 
   /* Spacing */
   --space-xs: 4px;
@@ -59,21 +57,18 @@
   --space-lg: 24px;
   --space-xl: 32px;
   --space-2xl: 48px;
+  --space-3xl: 64px;
 
   /* Layout */
   --navbar-height: 60px;
   --sidebar-width: 280px;
+  --content-max-width: 1400px;
+  --page-padding: 48px;
   --grid-columns: 3;
   --grid-gap: 24px;
 
   /* Borders */
   --border-radius: 8px;
-  --border-radius-lg: 12px;
-}
-
-@font-face {
-  font-family: 'Aptos';
-  src: local('Aptos'), local('Segoe UI');
 }
 
 /* ============================================================
@@ -98,14 +93,7 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-gray-dark);
-  background-color: var(--color-white);
-}
-
-#app {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
+  background-color: var(--color-gray-light);
 }
 
 img {
@@ -125,6 +113,27 @@ button {
   border: none;
   background: none;
   padding: 0;
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ============================================================
@@ -160,12 +169,6 @@ button {
   padding: 8px;
   background: transparent;
   border: none;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.navbar__hamburger:hover {
-  background-color: var(--color-gray-light);
 }
 
 .navbar__hamburger span {
@@ -216,24 +219,16 @@ button {
 .navbar__user-arrow {
   font-size: 10px;
   color: var(--color-gray-muted);
-  transition: transform 0.2s ease;
-}
-
-.navbar__user-arrow.open {
-  transform: rotate(180deg);
 }
 
 .navbar__user-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: var(--color-blue);
+  background-color: var(--color-gray-medium);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-white);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
 }
 
 .navbar__dropdown {
@@ -244,7 +239,7 @@ button {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   box-shadow: var(--shadow-card);
-  min-width: 200px;
+  min-width: 150px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
@@ -256,16 +251,6 @@ button {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-
-.navbar__dropdown-header {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--color-gray-medium);
-}
-
-.navbar__dropdown-email {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-muted);
 }
 
 .navbar__dropdown-item {
@@ -281,14 +266,6 @@ button {
 
 .navbar__dropdown-item:hover {
   background-color: var(--color-gray-light);
-}
-
-.navbar__dropdown-item--danger {
-  color: var(--color-primary);
-}
-
-.navbar__dropdown-item--danger:hover {
-  background-color: #fef2f2;
 }
 
 /* ============================================================
@@ -357,24 +334,21 @@ button {
   gap: var(--space-sm);
 }
 
-.sidebar__user-name {
+.sidebar__user span {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-gray-dark);
 }
 
-.sidebar__user-logout {
+.sidebar__user button {
   font-size: var(--font-size-sm);
   color: var(--color-primary);
   transition: color 0.2s ease;
   text-align: left;
   cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
 }
 
-.sidebar__user-logout:hover {
+.sidebar__user button:hover {
   color: var(--color-primary-dark);
 }
 
@@ -393,10 +367,6 @@ button {
   color: var(--color-gray-dark);
   transition: background-color 0.2s ease;
   cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
 }
 
 .sidebar__menu-item:hover {
@@ -419,36 +389,6 @@ button {
 .sidebar__menu-arrow {
   font-size: 10px;
   color: var(--color-gray-muted);
-  transition: transform 0.2s ease;
-}
-
-.sidebar__menu-arrow.open {
-  transform: rotate(90deg);
-}
-
-.sidebar__submenu {
-  padding-left: calc(var(--space-lg) + 20px + var(--space-md));
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease;
-}
-
-.sidebar__submenu.open {
-  max-height: 200px;
-}
-
-.sidebar__submenu-item {
-  display: block;
-  padding: 10px var(--space-lg);
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-muted);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.sidebar__submenu-item:hover {
-  color: var(--color-primary);
-  background-color: var(--color-gray-light);
 }
 
 .sidebar__footer {
@@ -478,192 +418,163 @@ button {
 }
 
 /* ============================================================
-   App Cards Component (Grid Buttons)
+   App Cards Component
    ============================================================ */
 .app-card {
   background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--border-radius);
   padding: var(--space-md);
+  min-width: 200px;
   min-height: 160px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   transition: all 0.2s ease;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow-card);
-  outline: none;
 }
 
 .app-card:hover {
-  background-color: var(--color-card-bg-hover);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-5px);
-  border-color: #f3e8d2;
+  transform: translateY(-2px);
 }
 
 .app-card__logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40%;
-  width: 100%;
-  margin-bottom: var(--space-sm);
+  flex: 1;
+  padding: var(--space-sm) 0;
 }
 
 .app-card__logo img {
   max-height: 60px;
-  height: 90%;
   width: auto;
   object-fit: contain;
-  pointer-events: none;
-}
-
-.app-card__name {
-  font-size: 1rem;
-  font-weight: var(--font-weight-bold);
-  color: #1b1b1b;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .app-card__description {
-  font-size: 0.75rem;
-  color: var(--color-gray-muted);
-  line-height: 1.4;
-  text-align: center;
-  margin: 0;
-  transition: color 0.2s ease;
-}
-
-.app-card:hover .app-card__description {
-  color: #374151;
-}
-
-/* ============================================================
-   App Grid Layout
-   ============================================================ */
-.app-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-columns, 3), minmax(0, 1fr));
-  gap: 1.5vh 20px;
-  width: 100%;
-  max-width: 1000px;
-}
-
-.app-grid .app-card {
-  height: 24vh;
-  max-height: 28vh;
-}
-
-/* ============================================================
-   Login Page Styles
-   ============================================================ */
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
-  max-width: 400px;
-  width: 100%;
-}
-
-.login-logo {
-  height: 60px;
-  width: auto;
-  margin-bottom: var(--space-md);
-}
-
-.login-notice {
   font-size: var(--font-size-sm);
   color: var(--color-gray-muted);
-  text-align: center;
-}
-
-.login-notice a {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
-.login-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  width: 100%;
-  padding: 14px 24px;
-  background-color: #363c4e;
-  color: var(--color-white);
-  border: none;
-  border-radius: 4px;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.login-btn:hover {
-  background-color: #2d3240;
-}
-
-.login-btn__icon {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  width: 16px;
-  height: 16px;
-}
-
-.login-btn__icon span {
-  background-color: var(--color-white);
-  border-radius: 1px;
-}
-
-.logout-message {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gray-dark);
-  text-align: left;
-  margin-bottom: var(--space-lg);
+  line-height: 1.4;
+  padding-top: var(--space-sm);
+  margin: 0;
 }
 
 /* ============================================================
-   Page Transitions
+   Dashboard Layout (Main Page)
    ============================================================ */
-.page-transition {
-  animation: fadeIn 0.3s ease-in-out;
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--navbar-height);
+  width: 100%;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Dashboard Hero Section (Left) */
+.dashboard__hero {
+  flex: 0 0 45%;
+  background-color: var(--color-white);
+  padding: var(--space-3xl) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.dashboard__hero .hero-logo {
+  position: absolute;
+  top: var(--space-2xl);
+  left: var(--space-2xl);
+  max-width: 180px;
+  height: auto;
+}
+
+.dashboard__hero .welcome-text {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-muted);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dashboard__hero .portal-name {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2xl);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.dashboard__hero .hero-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: var(--space-xl);
+  border-radius: var(--border-radius);
+}
+
+/* Dashboard Apps Section (Right) */
+.dashboard__apps {
+  flex: 0 0 55%;
+  background-color: var(--color-gray-light);
+  padding: var(--space-2xl);
+  overflow-y: auto;
+  max-height: calc(100vh - var(--navbar-height));
+}
+
+/* App Grid */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns, 3), 1fr);
+  gap: var(--grid-gap, 24px);
+  width: 100%;
 }
 
 /* ============================================================
    Responsive Breakpoints
    ============================================================ */
 @media (max-width: 1440px) {
+  .dashboard__hero {
+    flex: 0 0 40%;
+  }
+
+  .dashboard__apps {
+    flex: 0 0 60%;
+  }
+
   .app-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
-  .app-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard__hero,
+  .dashboard__apps {
+    flex: none;
+  }
+
+  .dashboard__hero {
+    min-height: 40vh;
+  }
+
+  .dashboard__apps {
+    max-height: none;
+  }
+
+  .dashboard__hero .hero-logo {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: var(--space-lg);
   }
 }

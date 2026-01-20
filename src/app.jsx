@@ -1,199 +1,252 @@
-import React from 'react';
-import { Routes, Route, useLocation, Link } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MainPage from './pages/Main/MainPage';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar';
-import globeImg from './assets/Globe.png'; 
-import logoGroup from './assets/ASW-185yrs-logo-group-en.png'; 
+import { branding, user, content, menuItems } from './config';
+import globeImg from './assets/Globe.png';
+import logoGroup from './assets/ASW-185yrs-logo-group-en.png';
 import logo from './assets/ASWatsonLogo.png';
 import './style.css';
-
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
-  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedMenus, setExpandedMenus] = useState({});
+  const location = useLocation();
 
   const handleLogin = () => {
     setIsAuthenticated(true);
     setShowLogoutMessage(false);
-  }
+  };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     setShowLogoutMessage(true);
-  }
+    setIsMenuOpen(false);
+  };
 
-  const [accountOpen, setAccountOpen] = useState(false);
-  const [auditOpen, setAuditOpen] = useState(false);
+  const toggleMenu = (menuId) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [menuId]: !prev[menuId]
+    }));
+  };
+
+  const closeSidebar = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Close sidebar on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeSidebar();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Prevent body scroll when sidebar is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', overflow: 'hidden' }}>
-      {/* 1. FIXED NAVBAR */}
-      { isAuthenticated && (
-        <Navbar onBurgerClick={() => setIsMenuOpen(true)} 
-        isLoggedIn={isAuthenticated}
-        onLogout={handleLogout}
-      />
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', overflow: 'hidden' }}>
+      {/* Navbar - only show when authenticated */}
+      {isAuthenticated && (
+        <Navbar
+          onBurgerClick={() => setIsMenuOpen(true)}
+          isLoggedIn={isAuthenticated}
+          onLogout={handleLogout}
+          userName={user.displayName}
+          userInitials={user.initials}
+          userEmail={user.email}
+          logo={logo}
+        />
       )}
 
-      {/* 2. MAIN CONTENT AREA (The split) */}
-      <div style={{ 
-        display: 'flex', 
+      {/* Main Content Area */}
+      <div style={{
+        display: 'flex',
         flexDirection: 'row',
-        flex: 1, 
-        height: isAuthenticated ? 'calc(100vh - 64px)' : '100vh', // Adjust for navbar height
+        flex: 1,
+        height: isAuthenticated ? 'calc(100vh - 60px)' : '100vh',
+        marginTop: isAuthenticated ? '60px' : 0,
         width: '100vw',
         overflow: 'hidden'
       }}>
-
-        {/* LEFT PANE (40%) */}
-        <aside style={{ 
-          width: '40%', 
+        {/* Left Pane - Hero Section */}
+        <aside style={{
+          width: '40%',
           height: '100%',
-          display: 'flex', 
-          flexDirection: 'column', 
-          padding: '2rem', 
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '2rem',
           boxSizing: 'border-box',
           position: 'relative',
           backgroundColor: 'white',
           overflow: 'hidden',
-          //borderRight: '1px solid #e5e7eb',
-          //justifyContent: 'left',
         }}>
+          {/* Logo */}
           <div style={{ position: 'absolute', top: '1.5rem', left: '2rem' }}>
-            <img src={logoGroup} style={{ 
-              height: '75px', 
-              width: 'auto', 
-              objectFit: 'contain' 
-              }} 
-              alt="Logo" />
+            <img
+              src={logoGroup}
+              style={{ height: '75px', width: 'auto', objectFit: 'contain' }}
+              alt="AS Watson 185 Years"
+            />
           </div>
-          {/* 2. WELCOME TEXT (Centered in the pane) */}
-          <div style={{ position: 'absolute', top: isAuthenticated ? '15vh' : '20vh', left: '2rem', right: '2rem', zIndex: 2 }}>
-            <h3 style={{ 
-              margin: 0, 
-              fontWeight: '700', 
-              color: '#1b1b1b', 
+
+          {/* Welcome Text */}
+          <div style={{
+            position: 'absolute',
+            top: isAuthenticated ? '15vh' : '20vh',
+            left: '2rem',
+            right: '2rem',
+            zIndex: 2
+          }}>
+            <h3 style={{
+              margin: 0,
+              fontWeight: '700',
+              color: '#1b1b1b',
               fontSize: '1.1rem',
               letterSpacing: '1px',
               marginBottom: '0.5rem',
             }}>
-              WELCOME TO
+              {branding.welcomeText}
             </h3>
-            <h2 style={{ 
-              margin: 0, 
-              fontWeight: '700', 
-              color: '#1b1b1b', 
+            <h2 style={{
+              margin: 0,
+              fontWeight: '700',
+              color: '#1b1b1b',
               fontSize: '2rem',
               lineHeight: '1.1',
               maxWidth: '90%'
             }}>
-              AS WATSON WIN PORTAL
+              {branding.portalName}
             </h2>
           </div>
 
-          {/* 3. LEGO GLOBE IMAGE */}
+          {/* Globe Image */}
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: 'auto' }}>
-            <img src={globeImg} style={{ 
-              position: 'absolute',
-              bottom: '0',
-              left: '0',
-              width: '100%',
-              maxWidth: '35vw',
-              zIndex: 1,
-              pointerEvents: 'none',
-              opacity: 1
-              //marginLeft: '-3rem',
-              //height: 'auto',
-              //marginBottom: '-3rem',
-              }} 
-              alt="Globe" />
+            <img
+              src={globeImg}
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                width: '100%',
+                maxWidth: '35vw',
+                zIndex: 1,
+                pointerEvents: 'none',
+                opacity: 1
+              }}
+              alt="Globe"
+            />
           </div>
         </aside>
 
-        {/* RIGHT PANE (70%) */}
-        <main style={{ 
-          width: '60%', 
+        {/* Right Pane - Content Area */}
+        <main style={{
+          width: '60%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          justifyContent: isAuthenticated ? 'flex-start' : 'center', 
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: isAuthenticated ? 'flex-start' : 'center',
           padding: '2rem',
           boxSizing: 'border-box',
           overflowY: 'auto',
           backgroundColor: '#ffffff'
-          //overflow: 'hidden' // Allows scrolling if grid is too big
         }}>
           <section key={location.pathname} className="page-transition" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             <Routes>
-              <Route path="/" element={isAuthenticated ? ( <MainPage /> ) : 
-              ( <LoginPage onLogin={handleLogin} loggedOut={showLogoutMessage} /> )} />
+              <Route
+                path="/"
+                element={
+                  isAuthenticated
+                    ? <MainPage />
+                    : <LoginPage onLogin={handleLogin} loggedOut={showLogoutMessage} />
+                }
+              />
             </Routes>
           </section>
         </main>
       </div>
 
-      {/* Sidebar Drawer Logic */}
-      {isMenuOpen && (
-        <div 
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 40 }} 
-          onClick={() => setIsMenuOpen(false)} 
-        />
-      )}
-      
-      <aside style={{ 
-        position: 'fixed', top: 0, left: 0, height: '100%', width: '256px', 
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', zIndex: 50, boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)',
-        transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
-        transition: 'transform 0.3s ease-in-out',
-        display: 'flex', flexDirection: 'column',
-        backdropFilter: 'blur(10px)'
-      }}>
-        {/* TOP LOGO AREA */}
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <img src={logo} style={{ height: '40px', width: 'auto' }} alt="Sidebar Logo" />
-          <button onClick={() => setIsMenuOpen(false)} style={{ fontSize: '1.2rem', cursor: 'pointer', border: 'none', background: 'none' }}>✕</button>
+      {/* Sidebar Overlay */}
+      <div
+        className={`sidebar-overlay ${isMenuOpen ? 'active' : ''}`}
+        onClick={closeSidebar}
+      />
+
+      {/* Sidebar */}
+      <aside className={`sidebar ${isMenuOpen ? 'sidebar--open' : ''}`}>
+        {/* Sidebar Header */}
+        <div className="sidebar__header">
+          <img src={logo} alt="AS Watson" className="sidebar__logo" />
+          <button className="sidebar__close" onClick={closeSidebar} aria-label="Close menu">
+            &times;
+          </button>
         </div>
-        {/* NAV LINKS AREA */}
-        <nav style={{ flex: 1, padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto' }}>
-          
-          <div className="sidebar-item"> 📁 Application List </div>
-          
-          {/* Dropdown 1: Account Management */}
-          <div>
-            <div className="sidebar-item" onClick={() => setAccountOpen(!accountOpen)} style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>👤 Account Management</span>
-              <span>{accountOpen ? '▴' : '▾'}</span>
+
+        {/* Sidebar User Section */}
+        <div className="sidebar__user">
+          <span className="sidebar__user-name">{user.displayName}</span>
+          <button className="sidebar__user-logout" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+
+        {/* Sidebar Menu */}
+        <nav className="sidebar__menu">
+          {menuItems.map((item) => (
+            <div key={item.id}>
+              {item.expandable ? (
+                <>
+                  <button
+                    className="sidebar__menu-item"
+                    onClick={() => toggleMenu(item.id)}
+                  >
+                    <span className="sidebar__menu-icon">{item.icon}</span>
+                    <span className="sidebar__menu-label">{item.label}</span>
+                    <span className={`sidebar__menu-arrow ${expandedMenus[item.id] ? 'open' : ''}`}>
+                      ▶
+                    </span>
+                  </button>
+                  <div className={`sidebar__submenu ${expandedMenus[item.id] ? 'open' : ''}`}>
+                    {item.children?.map((child) => (
+                      <a key={child.id} href={child.link} className="sidebar__submenu-item">
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <a href={item.link} className="sidebar__menu-item">
+                  <span className="sidebar__menu-icon">{item.icon}</span>
+                  <span className="sidebar__menu-label">{item.label}</span>
+                </a>
+              )}
             </div>
-            {accountOpen && (
-              <div style={{ paddingLeft: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-                <div className="sidebar-sub-item">User Profiles</div>
-                <div className="sidebar-sub-item">Permissions</div>
-              </div>
-            )}
-          </div>
-          
-          {/* Dropdown 2: Audit Log */}
-          <div>
-            <div className="sidebar-item" onClick={() => setAuditOpen(!auditOpen)} style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>📋 Audit Log</span>
-              <span>{auditOpen ? '▴' : '▾'}</span>
-            </div>
-            {auditOpen && (
-              <div style={{ paddingLeft: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-                <div className="sidebar-sub-item">System Logs</div>
-                <div className="sidebar-sub-item">Login Activity</div>
-              </div>
-            )}
-          </div>
-          
-          <div className="sidebar-item"> 🏢 BU/Supplier Management </div>
-          <div className="sidebar-item"> 💳 Subscription Plan </div>
+          ))}
         </nav>
+
+        {/* Sidebar Footer */}
+        <footer className="sidebar__footer">
+          {content.footerVersion}
+        </footer>
       </aside>
     </div>
-  ); // End of Return
-} // End of App Function
+  );
+}
