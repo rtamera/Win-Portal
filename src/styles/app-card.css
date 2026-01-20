@@ -51,10 +51,8 @@
   color: #1b1b1b;
   margin-bottom: 0.5rem;
   text-align: center;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .app-card__description {
@@ -73,7 +71,7 @@
 /* App Grid Layout */
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(var(--grid-columns, 3), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--grid-columns, 3), minmax(200px, 1fr));
   gap: 1.5vh 20px;
   width: 100%;
   max-width: 1000px;
