@@ -362,6 +362,109 @@ npm run build
 
 ---
 
+## GitHub Pages Deployment (Automatic)
+
+This project uses **GitHub Actions** to automatically deploy to GitHub Pages. Here's everything you need to know:
+
+### How It Works
+
+```
+┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│  You push code  │ ───► │ GitHub Actions  │ ───► │  Live website   │
+│  to main-rhea   │      │ builds & deploy │      │    updates      │
+└─────────────────┘      └─────────────────┘      └─────────────────┘
+```
+
+**Simple explanation:** Every time you push code to the `main-rhea` branch, GitHub automatically:
+1. Downloads your code
+2. Runs `npm install`
+3. Runs `npm run build`
+4. Publishes the built files to GitHub Pages
+
+### Important: Which Branch Triggers Deployment?
+
+| Branch | What Happens on Push |
+|--------|---------------------|
+| `main-rhea` | Automatically deploys to live site |
+| Any other branch | Nothing happens (safe to experiment) |
+
+### Live Site URL
+
+**https://rtamera.github.io/Win-Portal/**
+
+### Step-by-Step: Making Changes Go Live
+
+1. **Make your changes** to the code locally
+2. **Test locally** with `npm run dev`
+3. **Commit your changes:**
+   ```bash
+   git add .
+   git commit -m "Describe what you changed"
+   ```
+4. **Push to main-rhea:**
+   ```bash
+   git push origin main-rhea
+   ```
+5. **Wait 1-2 minutes** for deployment
+6. **Check the live site** - your changes are now live!
+
+### How to Check Deployment Status
+
+1. Go to the repository on GitHub
+2. Click the **"Actions"** tab
+3. You'll see a list of deployments:
+   - 🟡 Yellow circle = Currently deploying
+   - ✅ Green checkmark = Successfully deployed
+   - ❌ Red X = Deployment failed (click to see error)
+
+### Common Questions
+
+**Q: Does every push update the live site?**
+A: Only pushes to `main-rhea` branch. Other branches don't trigger deployment.
+
+**Q: How long does deployment take?**
+A: Usually 1-2 minutes.
+
+**Q: What if deployment fails?**
+A: Go to Actions tab, click on the failed run, and read the error message. Common issues:
+- Syntax errors in code
+- Missing dependencies
+- Build errors
+
+**Q: Can I deploy manually?**
+A: Yes! Go to Actions tab → "Deploy to GitHub Pages" → "Run workflow" button.
+
+**Q: How do I test without affecting the live site?**
+A: Create a new branch, make changes there, and only merge to `main-rhea` when ready:
+```bash
+git checkout -b my-new-feature    # Create new branch
+# ... make changes ...
+git push origin my-new-feature    # Push (won't deploy)
+# When ready, merge to main-rhea via Pull Request
+```
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.github/workflows/deploy.yml` | GitHub Actions workflow (don't edit unless you know what you're doing) |
+| `vite.config.js` | Build configuration with `base: '/Win-Portal/'` for GitHub Pages |
+| `src/main.jsx` | Has `basename` for React Router to work with subdirectory |
+
+### Workflow File Explained
+
+The file `.github/workflows/deploy.yml` contains:
+
+```yaml
+on:
+  push:
+    branches: [main-rhea]  # Only runs when pushing to this branch
+```
+
+This is why only `main-rhea` triggers deployment.
+
+---
+
 ## Tips for Beginners
 
 1. **Always save files** before checking the browser
