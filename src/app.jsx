@@ -122,7 +122,7 @@ export default function App() {
             overflow: 'hidden',
           }}>
             {/* Logo */}
-            <div style={{ position: 'absolute', top: '1.5rem', left: '2rem' }}>
+            <div style={{ marginBottom: '1.5rem' }}>
               <img
                 src={logoGroup}
                 style={{ height: '75px', width: 'auto', objectFit: 'contain' }}
@@ -132,11 +132,8 @@ export default function App() {
 
             {/* Welcome Text */}
             <div style={{
-              position: 'absolute',
-              top: isAuthenticated ? '15vh' : '20vh',
-              left: '2rem',
-              right: '2rem',
-              zIndex: 2
+              zIndex: 2,
+              marginBottom: '1rem',
             }}>
               <h3 style={{
                 margin: 0,
@@ -163,7 +160,14 @@ export default function App() {
             </div>
 
             {/* Globe Image */}
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginTop: 'auto' }}>
+            <div style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              marginTop: 'auto',
+              flex: 1,
+              minHeight: 0,
+            }}>
               <img
                 src={globeImg}
                 style={{
@@ -173,9 +177,11 @@ export default function App() {
                   width: '100%',
                   maxWidth: '35vw',
                   minWidth: '300px',
+                  maxHeight: '60%',
+                  objectFit: 'contain',
+                  objectPosition: 'bottom left',
                   zIndex: 1,
                   pointerEvents: 'none',
-                  opacity: 1
                 }}
                 alt="Globe"
               />
