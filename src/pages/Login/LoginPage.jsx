@@ -8,8 +8,8 @@ export default function LoginPage({ onLogin, loggedOut }) {
       {/* LOGIN CARD */}
       <div style={{
         width: '100%',
-        maxWidth: '400px',
-        padding: '3rem 2rem',
+        maxWidth: '500px',
+        padding: '4rem 3rem',
         backgroundColor: 'white',
         borderRadius: '2px', // Microsoft uses sharper corners
         /*boxShadow: '0 2px 10px rgba(0,0,0,0.15)',*/
@@ -34,28 +34,28 @@ export default function LoginPage({ onLogin, loggedOut }) {
         ) : (
           /* DEFAULT STATE: Logo and Edge notice */
           <>
-        <img 
-          src={logo} 
-          alt="ASWatson Logo" 
-          style={{ width: '300px', marginBottom: '2rem', marginLeft:'-18px', display: 'block' }} 
+        <img
+          src={logo}
+          alt="ASWatson Logo"
+          style={{ width: '340px', marginBottom: '2.5rem', marginLeft:'-18px', display: 'block' }}
         />
         
-        <p style={{ fontSize: '.80rem', fontWeight: 'normal', marginBottom: '1.5rem', color: '#1b1b1b' }}>
+        <p style={{ fontSize: '.85rem', fontWeight: 'normal', marginBottom: '2rem', color: '#1b1b1b', lineHeight: '1.6' }}>
           (This site is best viewed in Microsoft Edge)<br/>
           Please contact <b>system administrator</b> if you have any difficulties logging in.
         </p>
       </>
     )}
         {/* LOGIN BUTTON */}
-        <button 
+        <button
           onClick={onLogin}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
+          style={{
+            width: '100%',
+            padding: '14px 16px',
             backgroundColor: '#363c4e',
-            color: 'white', 
-            border: 'none', 
-            fontSize: '15px',
+            color: 'white',
+            border: 'none',
+            fontSize: '16px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',

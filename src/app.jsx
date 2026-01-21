@@ -145,6 +145,7 @@ export default function App() {
                 fontSize: '1.1rem',
                 letterSpacing: '1px',
                 marginBottom: '0.5rem',
+                WebkitTextStroke: '0.3px #1b1b1b',
               }}>
                 {branding.welcomeText}
               </h3>
@@ -154,7 +155,8 @@ export default function App() {
                 color: '#1b1b1b',
                 fontSize: '2rem',
                 lineHeight: '1.1',
-                maxWidth: '90%'
+                maxWidth: '90%',
+                WebkitTextStroke: '0.5px #1b1b1b',
               }}>
                 {branding.portalName}
               </h2>
@@ -194,6 +196,7 @@ export default function App() {
           padding: '2rem',
           boxSizing: 'border-box',
           overflowY: isNarrowScreen ? 'visible' : 'auto',
+          overflowX: 'hidden',
           backgroundColor: '#ffffff'
         }}>
           <section key={location.pathname} className="page-transition" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
