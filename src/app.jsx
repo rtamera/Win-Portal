@@ -132,13 +132,13 @@ export default function App() {
 
             {/* Welcome Text - right below logo */}
             <div style={{
-              marginTop: '0.75rem',
+              marginTop: 'clamp(0.5rem, 1.5vh, 1rem)',
             }}>
               <h3 style={{
                 margin: 0,
                 fontWeight: '800',
                 color: '#1b1b1b',
-                fontSize: '1rem',
+                fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
                 letterSpacing: '1.1px',
                 WebkitTextStroke: '0.5px #1b1b1b',
               }}>
@@ -148,11 +148,11 @@ export default function App() {
                 margin: 0,
                 fontWeight: '800',
                 color: '#1b1b1b',
-                fontSize: '1.6rem',
+                fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
                 lineHeight: '1.1',
-                maxWidth: '90%',
                 letterSpacing: '1.1px',
                 WebkitTextStroke: '0.8px #1b1b1b',
+                whiteSpace: 'nowrap',
               }}>
                 {branding.portalName}
               </h2>
