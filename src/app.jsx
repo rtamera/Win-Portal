@@ -133,6 +133,8 @@ export default function App() {
             {/* Welcome Text - right below logo */}
             <div style={{
               marginTop: 'clamp(0.5rem, 1.5vh, 1rem)',
+              position: 'relative',
+              zIndex: 1,
             }}>
               <h3 style={{
                 margin: 0,
@@ -166,7 +168,7 @@ export default function App() {
                 bottom: '0',
                 left: '0',
                 width: '100%',
-                maxHeight: 'calc(100% - 200px)',
+                maxHeight: 'calc(100% - 240px)',
                 objectFit: 'contain',
                 objectPosition: 'bottom left',
                 pointerEvents: 'none',
