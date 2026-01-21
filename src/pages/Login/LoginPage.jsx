@@ -11,10 +11,8 @@ export default function LoginPage({ onLogin, loggedOut }) {
         maxWidth: '500px',
         padding: '4rem 3rem',
         backgroundColor: 'white',
-        borderRadius: '2px', // Microsoft uses sharper corners
-        /*boxShadow: '0 2px 10px rgba(0,0,0,0.15)',*/
+        borderRadius: '2px', 
         textAlign: 'left',
-        /*border: '1px solid #d1d5db'*/
       }}>
         
         {/* CONDITIONAL CONTENT: Logout Message vs. Default Logo/Text */}
@@ -75,10 +73,6 @@ export default function LoginPage({ onLogin, loggedOut }) {
           </svg>
           Login with Microsoft 365
         </button>
-
-        {/*<div style={{ marginTop: '2rem', fontSize: '13px', color: '#666' }}>
-          By clicking sign in, you agree to the <a href="#" style={{ color: '#0067b8' }}>Terms of Use</a>
-        </div>*/}
       </div>
     </div>
   );
