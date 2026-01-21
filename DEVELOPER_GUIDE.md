@@ -362,35 +362,37 @@ npm run build
 
 ---
 
-## GitHub Pages Deployment (Automatic)
+## Netlify Deployment (Automatic)
 
-This project uses **GitHub Actions** to automatically deploy to GitHub Pages. Here's everything you need to know:
+This project uses **Netlify** to automatically deploy the website. Here's everything you need to know:
 
 ### How It Works
 
 ```
 ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-│  You push code  │ ───► │ GitHub Actions  │ ───► │  Live website   │
+│  You push code  │ ───► │ Netlify detects │ ───► │  Live website   │
 │  to main-rhea   │      │ builds & deploy │      │    updates      │
 └─────────────────┘      └─────────────────┘      └─────────────────┘
 ```
 
-**Simple explanation:** Every time you push code to the `main-rhea` branch, GitHub automatically:
-1. Downloads your code
+**Simple explanation:** Every time you push code to the `main-rhea` branch, Netlify automatically:
+1. Detects the new code
 2. Runs `npm install`
 3. Runs `npm run build`
-4. Publishes the built files to GitHub Pages
+4. Publishes the built files to your live site
 
 ### Important: Which Branch Triggers Deployment?
 
 | Branch | What Happens on Push |
 |--------|---------------------|
 | `main-rhea` | Automatically deploys to live site |
-| Any other branch | Nothing happens (safe to experiment) |
+| Any other branch | Creates a "Deploy Preview" (separate test URL) |
 
 ### Live Site URL
 
-**https://rtamera.github.io/Win-Portal/**
+Your site will be at: **https://[your-site-name].netlify.app**
+
+(You can customize this name in Netlify settings)
 
 ### Step-by-Step: Making Changes Go Live
 
@@ -410,58 +412,85 @@ This project uses **GitHub Actions** to automatically deploy to GitHub Pages. He
 
 ### How to Check Deployment Status
 
-1. Go to the repository on GitHub
-2. Click the **"Actions"** tab
-3. You'll see a list of deployments:
-   - 🟡 Yellow circle = Currently deploying
-   - ✅ Green checkmark = Successfully deployed
-   - ❌ Red X = Deployment failed (click to see error)
+1. Go to **[app.netlify.com](https://app.netlify.com)**
+2. Click on your site
+3. You'll see the deployment status:
+   - 🟡 **Building** = Currently deploying
+   - ✅ **Published** = Successfully deployed
+   - ❌ **Failed** = Deployment failed (click to see error)
+
+### Deploy Previews (Great for Testing!)
+
+When you push to a branch OTHER than `main-rhea`, Netlify creates a **Deploy Preview**:
+- It's a separate URL just for that branch
+- You can test changes without affecting the live site
+- Perfect for code reviews and testing
+
+Example: Push to `feature-branch` → Netlify creates `https://deploy-preview-123--your-site.netlify.app`
 
 ### Common Questions
 
 **Q: Does every push update the live site?**
-A: Only pushes to `main-rhea` branch. Other branches don't trigger deployment.
+A: Only pushes to `main-rhea` branch update the main site. Other branches get their own preview URLs.
 
 **Q: How long does deployment take?**
 A: Usually 1-2 minutes.
 
 **Q: What if deployment fails?**
-A: Go to Actions tab, click on the failed run, and read the error message. Common issues:
+A: Go to Netlify dashboard, click on the failed deploy, and read the error log. Common issues:
 - Syntax errors in code
 - Missing dependencies
 - Build errors
 
 **Q: Can I deploy manually?**
-A: Yes! Go to Actions tab → "Deploy to GitHub Pages" → "Run workflow" button.
+A: Yes! In Netlify dashboard → Deploys → "Trigger deploy" button.
+
+**Q: How do I rollback to a previous version?**
+A: In Netlify dashboard → Deploys → Click on any previous deploy → "Publish deploy" button.
 
 **Q: How do I test without affecting the live site?**
-A: Create a new branch, make changes there, and only merge to `main-rhea` when ready:
+A: Create a new branch and push to it:
 ```bash
 git checkout -b my-new-feature    # Create new branch
 # ... make changes ...
-git push origin my-new-feature    # Push (won't deploy)
-# When ready, merge to main-rhea via Pull Request
+git push origin my-new-feature    # Push (creates Deploy Preview)
+# Test at the preview URL
+# When ready, merge to main-rhea
 ```
 
 ### Configuration Files
 
 | File | Purpose |
 |------|---------|
-| `.github/workflows/deploy.yml` | GitHub Actions workflow (don't edit unless you know what you're doing) |
-| `vite.config.js` | Build configuration with `base: '/Win-Portal/'` for GitHub Pages |
-| `src/main.jsx` | Has `basename` for React Router to work with subdirectory |
+| `netlify.toml` | Netlify build settings and redirects |
+| `vite.config.js` | Build configuration with `base: '/'` |
 
-### Workflow File Explained
+### netlify.toml Explained
 
-The file `.github/workflows/deploy.yml` contains:
+```toml
+[build]
+  command = "npm run build"    # What command to run
+  publish = "dist"             # Where the built files are
 
-```yaml
-on:
-  push:
-    branches: [main-rhea]  # Only runs when pushing to this branch
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200                 # Handles client-side routing (SPA)
 ```
 
-This is why only `main-rhea` triggers deployment.
+### First-Time Setup (One-Time Only)
+
+If you need to connect a new Netlify site:
+
+1. Go to **[app.netlify.com](https://app.netlify.com)**
+2. Click **"Add new site"** → **"Import an existing project"**
+3. Choose **"Deploy with GitHub"**
+4. Select the **Win-Portal** repository
+5. Set these build settings:
+   - Branch: `main-rhea`
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+6. Click **"Deploy site"**
 
 ---
 
