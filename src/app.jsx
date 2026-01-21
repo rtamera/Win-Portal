@@ -121,72 +121,58 @@ export default function App() {
             backgroundColor: 'white',
             overflow: 'hidden',
           }}>
-            {/* Logo */}
-            <div style={{ marginBottom: '1.5rem' }}>
+            {/* Logo - positioned at top */}
+            <div>
               <img
                 src={logoGroup}
-                style={{ height: '75px', width: 'auto', objectFit: 'contain' }}
+                style={{ height: 'clamp(75px, 12vh, 120px)', width: 'auto', objectFit: 'contain' }}
                 alt="AS Watson 185 Years"
               />
             </div>
 
-            {/* Welcome Text */}
+            {/* Welcome Text - right below logo */}
             <div style={{
-              zIndex: 2,
-              marginBottom: '1rem',
+              marginTop: '0.75rem',
             }}>
               <h3 style={{
                 margin: 0,
-                fontWeight: '700',
+                fontWeight: '800',
                 color: '#1b1b1b',
                 fontSize: '1rem',
                 letterSpacing: '1.1px',
-                //marginBottom: '0.1rem',
-                WebkitTextStroke: '0.3px #1b1b1b',
+                WebkitTextStroke: '0.5px #1b1b1b',
               }}>
                 {branding.welcomeText}
               </h3>
               <h2 style={{
                 margin: 0,
-                fontWeight: '700',
+                fontWeight: '800',
                 color: '#1b1b1b',
                 fontSize: '1.6rem',
                 lineHeight: '1.1',
                 maxWidth: '90%',
                 letterSpacing: '1.1px',
-                WebkitTextStroke: '0.5px #1b1b1b',
+                WebkitTextStroke: '0.8px #1b1b1b',
               }}>
                 {branding.portalName}
               </h2>
             </div>
 
-            {/* Globe Image */}
-            <div style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'flex-start',
-              marginTop: 'auto',
-              flex: 1,
-              minHeight: 0,
-            }}>
-              <img
-                src={globeImg}
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  left: '0',
-                  width: '100%',
-                  maxWidth: '35vw',
-                  minWidth: '300px',
-                  maxHeight: '60%',
-                  objectFit: 'contain',
-                  objectPosition: 'bottom left',
-                  zIndex: 1,
-                  pointerEvents: 'none',
-                }}
-                alt="Globe"
-              />
-            </div>
+            {/* Globe Image - fills remaining space at bottom, flush to edges */}
+            <img
+              src={globeImg}
+              style={{
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                width: '100%',
+                maxHeight: 'calc(100% - 200px)',
+                objectFit: 'contain',
+                objectPosition: 'bottom left',
+                pointerEvents: 'none',
+              }}
+              alt="Globe"
+            />
           </aside>
         )}
 
