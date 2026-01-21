@@ -165,7 +165,7 @@ export default function App() {
                 position: 'absolute',
                 bottom: '0',
                 left: '0',
-                width: '110%',
+                width: '100%',
                 maxHeight: 'calc(100% - 200px)',
                 objectFit: 'contain',
                 objectPosition: 'bottom left',
