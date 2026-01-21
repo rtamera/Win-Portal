@@ -139,9 +139,9 @@ export default function App() {
                 margin: 0,
                 fontWeight: '700',
                 color: '#1b1b1b',
-                fontSize: '1.1rem',
-                letterSpacing: '1px',
-                marginBottom: '0.5rem',
+                fontSize: '1rem',
+                letterSpacing: '1.1px',
+                //marginBottom: '0.1rem',
                 WebkitTextStroke: '0.3px #1b1b1b',
               }}>
                 {branding.welcomeText}
@@ -150,9 +150,10 @@ export default function App() {
                 margin: 0,
                 fontWeight: '700',
                 color: '#1b1b1b',
-                fontSize: '2rem',
+                fontSize: '1.6rem',
                 lineHeight: '1.1',
                 maxWidth: '90%',
+                letterSpacing: '1.1px',
                 WebkitTextStroke: '0.5px #1b1b1b',
               }}>
                 {branding.portalName}
